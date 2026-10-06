@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-warm-white font-sans text-charcoal;
+  }
+
+  ::selection {
+    @apply bg-charcoal text-warm-white;
+  }
+
+  /* Minimal, editorial scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f4f0e8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d5c7b2;
+  }
+}
+
+@layer components {
+  /* Small uppercase eyebrow used throughout the site */
+  .label {
+    @apply font-sans text-[10px] font-medium uppercase tracking-label sm:text-[11px];
+  }
+
+  .display {
+    @apply font-display font-light leading-[0.95] tracking-[-0.01em];
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-[1480px] px-6 sm:px-10 lg:px-16;
+  }
+
+  .link-line {
+    @apply relative inline-block text-[11px] font-medium uppercase tracking-wide;
+  }
+
+  .link-line::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-full origin-left scale-x-100 bg-current transition-transform duration-500 ease-editorial;
+  }
+
+  .link-line:hover::after {
+    @apply origin-right scale-x-0;
+  }
+
+  .field {
+    @apply w-full border-0 border-b border-charcoal/20 bg-transparent py-3 text-sm font-light text-charcoal placeholder-charcoal/40 outline-none transition-colors duration-300 focus:border-charcoal;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
