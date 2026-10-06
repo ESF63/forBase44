@@ -1,0 +1,67 @@
+# Base44 development environment for ARCORA.
+#
+# Both app services run from the cloned source with a live-reloading dev
+# command, so edits are visible without rebuilding an image.
+
+services:
+  api:
+    image: node:22
+    working_dir: /app/server
+    command: ["sh", "-ec", "npm install --no-audit --no-fund && exec npm start"]
+    volumes:
+      - ./server:/app/server
+      - /app/server/node_modules
+      - arcora-data:/data
+    environment:
+      - PORT=8000
+      - DATA_DIR=/data
+    restart: on-failure
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:8000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+
+  web:
+    image: node:22
+    working_dir: /app/client
+    command:
+      [
+        "sh",
+        "-ec",
+        "npm install --no-audit --no-fund && exec npm run dev -- --host 0.0.0.0 --port 3000",
+      ]
+    volumes:
+      - ./client:/app/client
+      - /app/client/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=${BASE44_PUBLIC_HOST_SUFFIX:-}
+      - API_PROXY_TARGET=http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: on-failure
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 90s
+
+volumes:
+  arcora-data:
