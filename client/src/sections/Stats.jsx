@@ -7,7 +7,7 @@ export default function Stats() {
     <section className="bg-charcoal py-20 text-warm-white lg:py-28">
       <div className="shell">
         <Reveal>
-          <p className="label text-warm-white/40">Why ARCORA</p>
+          <p className="label text-mist">Why ARCORA</p>
         </Reveal>
 
         <div className="mt-12 grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">

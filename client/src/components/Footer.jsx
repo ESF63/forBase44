@@ -15,7 +15,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <p className="label text-warm-white/40">Navigation</p>
+            <p className="label text-mist">Navigation</p>
             <ul className="mt-6 space-y-3">
               {navLinks.map((link) => (
                 <li key={link.to}>
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <p className="label text-warm-white/40">Newsletter</p>
+            <p className="label text-mist">Newsletter</p>
             <p className="mt-6 text-sm font-light leading-relaxed text-warm-white/55">
               Receive our latest projects and architectural stories.
             </p>

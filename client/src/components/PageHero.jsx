@@ -14,7 +14,7 @@ export default function PageHero({ image, eyebrow, title, intro, tall = false })
 
       <div className="shell relative z-10 pb-16 text-warm-white sm:pb-24">
         <Reveal>
-          <p className="label text-warm-white/60">{eyebrow}</p>
+          <p className="label text-mist">{eyebrow}</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h1 className="display mt-6 max-w-4xl text-[clamp(2.25rem,6.4vw,5.5rem)] uppercase">
